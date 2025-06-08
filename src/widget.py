@@ -1,4 +1,4 @@
-from src.masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
@@ -10,7 +10,7 @@ def mask_account_card(info: str) -> str:
     number = parts[-1]
     card_type = " ".join(parts[:-1])
 
-    if card_type.lower().startswith("счет") or card_type.lower().startswith("счёт"):
+    if card_type.lower().startswith("Cчет") or card_type.lower().startswith("Cчёт"):
         masked_number = get_mask_account(number)
     else:
         masked_number = get_mask_card_number(number)
@@ -23,6 +23,6 @@ def get_date(date_str: str) -> str:
     Принимаем дату в формате "2024-03-11T02:26:18.671407",
     и возвращаем строку в формате "ДД.ММ.ГГГГ", например "11.03.2024".
     """
-    date_part = date_str.split('T')[0]  # отделяем дату от времени
-    year, month, day = date_part.split('-')
+    date_part = date_str.split("T")[0]  # отделяем дату от времени
+    year, month, day = date_part.split("-")
     return f"{day}.{month}.{year}"
