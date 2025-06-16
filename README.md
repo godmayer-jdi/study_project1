@@ -49,21 +49,15 @@ sorted_ops_asc = sort_by_date(data, descending=False) # по возрастан�
 Если вы ещё не устанавливали линтеры, выполните:
 pip install flake8 mypy
 
-text
-
 ### Запуск flake8
 
 Проверка соответствия кода стандарту PEP 8:
 flake8 src/
 
-text
-
 ### Запуск mypy
 
 Проверка корректности аннотаций типов:
 mypy src/
-
-text
 
 > Требование:  
 > Количество ошибок по результатам проверки flake8 и mypy не должно превышать 4.
