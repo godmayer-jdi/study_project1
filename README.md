@@ -87,3 +87,27 @@ mypy src/
 
 Количество ошибок не должно превышать 4.
 >>>>>>> origin/feature/homework_tests
+ 
+
+## Модуль generators
+
+Модуль содержит функции-генераторы для работы с транзакциями:
+
+- filter_by_currency(transactions, currency_code) — возвращает транзакции с заданной валютой.
+- transaction_descriptions(transactions) — возвращает описание каждой транзакции.
+- card_number_generator(start, stop) — генерирует номера карт в формате XXXX XXXX XXXX XXXX.
+
+### Пример использования
+
+rom src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+usd_transactions = filter_by_currency(transactions, "USD")
+for _ in range(2):
+print(next(usd_transactions))
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+print(next(descriptions))
+
+for card in card_number_generator(1, 5):
+print(card)
