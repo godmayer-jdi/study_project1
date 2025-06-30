@@ -29,7 +29,7 @@ class Transaction(TypedDict, total=False):
 
 
 @pytest.fixture
-def transactions() -> List[Transaction]:
+def transactions() -> list[dict[str, str | dict[str, str | dict[str, str]] | int]]:
     return [
         {
             "id": 939719570,
@@ -37,7 +37,7 @@ def transactions() -> List[Transaction]:
             "date": "2018-06-30T02:08:58.425572",
             "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
             "description": "Перевод организации",
-            "from_": "Счет 75106830613657916952",  # так как "from" зарезервированное слово, использую from_ в коде
+            "from": "Счет 75106830613657916952",
             "to": "Счет 11776614605963066702",
         },
     ]
