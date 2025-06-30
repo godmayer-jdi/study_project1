@@ -1,7 +1,6 @@
-import functools
 import datetime
-import sys
-from typing import Callable, Optional, Any
+import functools
+from typing import Any, Callable, Optional
 
 
 def log(filename: Optional[str] = None) -> Callable:
@@ -29,8 +28,7 @@ def log(filename: Optional[str] = None) -> Callable:
                 return result
             except Exception as e:
                 log_message_error = (
-                    f"[{time_str}] Ошибка в функции '{func_name}': {type(e).__name__} - {e}. "
-                    f"Аргументы: {params}"
+                    f"[{time_str}] Ошибка в функции '{func_name}': {type(e).__name__} - {e}. " f"Аргументы: {params}"
                 )
                 _write_log(log_message_start, filename)
                 _write_log(log_message_error, filename)

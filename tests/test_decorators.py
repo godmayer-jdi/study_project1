@@ -1,11 +1,13 @@
-import os
+from typing import Any
+
 import pytest
+
 from src.decorators import log
 
 
-def test_log_console_success(capsys):
+def test_log_console_success(capsys: Any) -> None:
     @log()
-    def add(a, b):
+    def add(a: int, b: int) -> int:
         return a + b
 
     result = add(2, 3)
@@ -15,9 +17,9 @@ def test_log_console_success(capsys):
     assert "Функция 'add' вернула: 5" in captured.out
 
 
-def test_log_console_exception(capsys):
+def test_log_console_exception(capsys: Any) -> None:
     @log()
-    def div(a, b):
+    def div(a: int, b: int) -> float:
         return a / b
 
     with pytest.raises(ZeroDivisionError):
@@ -28,11 +30,11 @@ def test_log_console_exception(capsys):
     assert "Ошибка в функции 'div': ZeroDivisionError" in captured.out
 
 
-def test_log_file_success(tmp_path):
+def test_log_file_success(tmp_path: Any) -> None:
     log_file = tmp_path / "test.log"
 
     @log(filename=str(log_file))
-    def mul(a, b):
+    def mul(a: int, b: int) -> int:
         return a * b
 
     result = mul(4, 5)
@@ -43,16 +45,16 @@ def test_log_file_success(tmp_path):
     assert "Функция 'mul' вернула: 20" in content
 
 
-def test_log_file_exception(tmp_path):
+def test_log_file_exception(tmp_path: Any) -> None:
     log_file = tmp_path / "error.log"
 
     @log(filename=str(log_file))
-    def sub(a, b):
+    def sub(a: int, b: int) -> int:
         return a - b
 
     # Искусственно вызываем исключение
     @log(filename=str(log_file))
-    def raise_error():
+    def raise_error() -> None:
         raise ValueError("Ошибка!")
 
     with pytest.raises(ValueError):
