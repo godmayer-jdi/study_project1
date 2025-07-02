@@ -1,5 +1,6 @@
 import json
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 
 def load_transactions_from_json(path: str) -> List[Dict[str, Any]]:
     """
@@ -15,4 +16,3 @@ def load_transactions_from_json(path: str) -> List[Dict[str, Any]]:
                 return []
     except (FileNotFoundError, json.JSONDecodeError):
         return []
-
