@@ -122,3 +122,14 @@ print(card)
 - Логирует результат выполнения или ошибку.
 - Принимает необязательный параметр `filename` для записи логов в файл.
 - Если `filename` не указан, логи выводятся в консоль.
+
+## Работа с транзакциями и конвертацией валют
+
+### Чтение транзакций из JSON
+from src.utils import load_transactions_from_json
+
+transactions = load_transactions_from_json("data/operations.json")
+
+### Конвертация суммы транзакции в рубли
+
+### Настройка окружения
