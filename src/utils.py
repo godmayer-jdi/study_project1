@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 logger = logging.getLogger("utils")
 logger.setLevel(logging.DEBUG)
 
-file_handler = logging.FileHandler("../logs/utils.log", mode="w", encoding="utf-8")
+file_handler = logging.FileHandler("../study_project1/logs/utils.log", mode="w", encoding="utf-8")
 file_handler.setLevel(logging.DEBUG)
 
 file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
