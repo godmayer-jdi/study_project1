@@ -99,7 +99,7 @@ mypy src/
 
 ### Пример использования
 
-rom src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 usd_transactions = filter_by_currency(transactions, "USD")
 for _ in range(2):
@@ -141,3 +141,21 @@ transactions = load_transactions_from_json("data/operations.json")
 ### Реализована функция для считывания финансовых операций из CSV и Excel
 
 ### Функция выдает список словарей с транзакциями
+
+## Новая функциональность: Работа с поиском и подсчётом банковских операций
+
+Добавлены функции для работы с банковскими транзакциями:
+
+- **process_bank_search(data, search)** — поиск операций по подстроке в описании с использованием регулярных выражений (регистронезависимый поиск).
+- **process_bank_operations(data, categories)** — подсчёт количества операций по заданным категориям из описания.
+
+Реализован модуль `src.bank_operations` с указанными функциями.
+
+В модуле `main` добавлен пользовательский интерфейс для выбора источника данных (JSON, CSV, XLSX), фильтрации по статусу, сортировки, фильтрации по валюте и описанию.
+
+### Запуск и тестирование
+
+- Для запуска программы выполните `python -m main`.
+- Тесты находятся в папке `tests/` и покрывают более 80% функционала.
+- Запуск тестов: `pytest`.
+- Код типизирован и проверен с помощью `flake8` `black` `isort` и `mypy`.
