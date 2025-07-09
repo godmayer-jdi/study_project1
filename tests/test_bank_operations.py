@@ -1,5 +1,6 @@
 import pytest
-from src.bank_operations import process_bank_search, process_bank_operations
+
+from src.bank_operations import process_bank_operations, process_bank_search
 
 sample_data = [
     {"description": "Перевод на карту", "status": "EXECUTED"},
@@ -8,16 +9,22 @@ sample_data = [
     {"description": "Открытие вклада", "status": "PENDING"},
 ]
 
-def test_process_bank_search_found():
-    result = process_bank_search(sample_data, "перевод")
-    assert len(result) == 2
-    assert all("перевод" in item["description"].lower() for item in result)
 
-def test_process_bank_search_not_found():
-    result = process_bank_search(sample_data, "неизвестно")
-    assert result == []
+@pytest.mark.parametrize(
+    "search_term, expected_count",
+    [
+        ("перевод", 2),
+        ("неизвестно", 0),
+    ],
+)
+def test_process_bank_search(search_term: str, expected_count: int) -> None:
+    result = process_bank_search(sample_data, search_term)
+    assert len(result) == expected_count
+    if expected_count > 0:
+        assert all(search_term in item["description"].lower() for item in result)
 
-def test_process_bank_operations_counts():
+
+def test_process_bank_operations_counts() -> None:
     categories = ["перевод", "оплата", "вклад"]
     counts = process_bank_operations(sample_data, categories)
     assert counts["перевод"] == 2

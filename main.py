@@ -1,6 +1,6 @@
-from typing import List, Dict, Any
+from typing import Any, Dict
 
-from src.bank_operations import process_bank_search, process_bank_operations
+from src.bank_operations import process_bank_search
 from src.file_readers import read_transactions_from_csv, read_transactions_from_excel
 from src.utils import load_transactions_from_json
 
@@ -32,10 +32,14 @@ def main() -> None:
     valid_statuses = {"EXECUTED", "CANCELED", "PENDING"}
 
     while True:
-        status = input(
-            "Программа: Введите статус, по которому необходимо выполнить фильтрацию.\n"
-            f"Доступные для фильтровки статусы: {', '.join(valid_statuses)}\nПользователь: "
-        ).strip().upper()
+        status = (
+            input(
+                "Программа: Введите статус, по которому необходимо выполнить фильтрацию.\n"
+                f"Доступные для фильтровки статусы: {', '.join(valid_statuses)}\nПользователь: "
+            )
+            .strip()
+            .upper()
+        )
         if status in valid_statuses:
             print(f'Программа: Операции отфильтрованы по статусу "{status}"')
             break
@@ -54,8 +58,10 @@ def main() -> None:
     if sort_answer == "да":
         order = input("Программа: Отсортировать по возрастанию или по убыванию?\nПользователь: ").strip().lower()
         reverse = order == "по убыванию"
+
         def parse_date(op: Dict[str, Any]) -> Any:
             from datetime import datetime
+
             try:
                 return datetime.strptime(op.get("date", ""), "%d.%m.%Y")
             except Exception:
@@ -66,10 +72,18 @@ def main() -> None:
     # Фильтрация по валюте (только рубли)
     rub_filter = input("Программа: Выводить только рублевые транзакции? Да/Нет\nПользователь: ").strip().lower()
     if rub_filter == "да":
-        filtered_data = [op for op in filtered_data if op.get("operationAmount", {}).get("currency", {}).get("name", "").lower() == "руб."]
+        filtered_data = [
+            op
+            for op in filtered_data
+            if op.get("operationAmount", {}).get("currency", {}).get("name", "").lower() == "руб."
+        ]
 
     # Фильтрация по слову в описании
-    desc_filter = input("Программа: Отфильтровать список транзакций по определенному слову в описании? Да/Нет\nПользователь: ").strip().lower()
+    desc_filter = (
+        input("Программа: Отфильтровать список транзакций по определенному слову в описании? Да/Нет\nПользователь: ")
+        .strip()
+        .lower()
+    )
     if desc_filter == "да":
         search_word = input("Программа: Введите слово для поиска в описании:\nПользователь: ").strip()
         filtered_data = process_bank_search(filtered_data, search_word)
@@ -97,6 +111,7 @@ def main() -> None:
         if amount and currency:
             print(f"Сумма: {amount} {currency}")
         print()
+
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 
 def process_bank_search(data: List[Dict[str, Any]], search: str) -> List[Dict[str, Any]]:
@@ -15,9 +15,8 @@ def process_bank_search(data: List[Dict[str, Any]], search: str) -> List[Dict[st
         Список словарей с операциями, где описание содержит строку поиска.
     """
     pattern = re.compile(re.escape(search), re.IGNORECASE)
-    filtered = [item for item in data if 'description' in item and pattern.search(item['description'])]
+    filtered = [item for item in data if "description" in item and pattern.search(item["description"])]
     return filtered
-
 
 def process_bank_operations(data: List[Dict[str, Any]], categories: List[str]) -> Dict[str, int]:
     """
@@ -30,8 +29,8 @@ def process_bank_operations(data: List[Dict[str, Any]], categories: List[str]) -
     Returns:
         Словарь {категория: количество операций}.
     """
-    descriptions = [item.get('description', '') for item in data]
-    counter = Counter()
+    descriptions = [item.get("description", "") for item in data]
+    counter: Counter[str] = Counter()
     for category in categories:
         count = sum(1 for desc in descriptions if category.lower() in desc.lower())
         counter[category] = count
